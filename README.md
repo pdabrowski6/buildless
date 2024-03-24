@@ -7,5 +7,5 @@ Bootstrap Ruby on Rails application faster. Skip the boring part of the developm
 Install gem globally not per project:
 
 ```shell
-gem install buildless
+gem install buildless-app
 ```

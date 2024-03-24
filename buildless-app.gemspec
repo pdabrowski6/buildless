@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'buildless/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'buildless'
+  spec.name          = 'buildless-app'
   spec.authors       = ['Paweł Dąbrowski']
   spec.email         = ['contact@paweldabrowski.com']
   spec.license       = 'MIT'
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Speed up Rails app bootstraping'
   spec.description   = spec.summary
   spec.homepage      = 'https://buildless.app'
-  spec.files         = Dir['README.md', 'buildless.gemspec', 'bin/*', 'lib/**/*']
+  spec.files         = Dir['README.md', 'buildless-app.gemspec', 'bin/*', 'lib/**/*']
   spec.bindir        = 'bin'
   spec.executables   = ['buildless']
   spec.require_paths = ['lib']
