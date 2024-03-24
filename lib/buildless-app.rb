@@ -16,8 +16,6 @@ module Buildless
       verify_rails_installation
       generate_project(template)
       generate_files(template['files'])
-
-      system("cd #{template['name']}")
     end
 
     private
