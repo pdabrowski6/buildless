@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'buildless-app'
+
 command_line_arguments = ARGV.dup
 
-puts "Hello, world! Args: #{command_line_arguments}"
+Buildless::Cli::Processor.new(command_line_arguments).call

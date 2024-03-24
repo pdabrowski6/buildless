@@ -25,5 +25,7 @@ Gem::Specification.new do |spec|
   spec.metadata['bug_tracker_uri']   = 'https://github.com/pdabrowski6/buildless/issues'
   spec.metadata['rubygems_mfa_required'] = 'true'
 
+  spec.add_runtime_dependency 'rest-client', '2.1.0'
+
   spec.required_ruby_version = '>= 3.2.2'
 end
