@@ -15,6 +15,9 @@ module Buildless
     def apply(template)
       verify_rails_installation
       generate_project(template)
+      generate_files(template['files'])
+
+      system("cd #{template['name']}")
     end
 
     private
@@ -29,6 +32,15 @@ module Buildless
       system template['installation_command']
 
       Dir.chdir(template['name'])
+    end
+
+    def generate_files(files)
+      files.each do |file|
+        puts "-> \e[1;32;49mCreate\e[0m #{file['file_path']}"
+        file_path = File.join(Dir.pwd, file['file_path'])
+        FileUtils.mkdir_p(File.dirname(file_path))
+        File.write(file_path, file['content'])
+      end
     end
   end
 end
