@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+command_line_arguments = ARGV.dup
+
+puts "Hello, world! Args: #{command_line_arguments}"
