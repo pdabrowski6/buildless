@@ -13,6 +13,13 @@ module Buildless
 
         JSON.parse(response.body)
       end
+
+      def gem_version
+        response = RestClient.get(API_URL + "/configurations/gem_current_version")
+        parsed_response = JSON.parse(response.body)
+
+        parsed_response['version']
+      end
     end
   end
 end

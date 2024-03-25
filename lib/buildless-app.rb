@@ -9,12 +9,15 @@ require 'buildless/cli/fetch_template'
 require 'buildless/cli/processor'
 require 'buildless/version'
 require 'buildless/rails_app'
+require 'buildless/gem_version'
 
 module Buildless
   RailsNotInstalled = Class.new(StandardError)
 
   class << self
     def apply(template)
+      ::Buildless::GemVersion.validate!
+
       verify_rails_installation
       generate_project(template)
       generate_files(template['files'])
