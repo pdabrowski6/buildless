@@ -16,6 +16,7 @@ module Buildless
       verify_rails_installation
       generate_project(template)
       generate_files(template['files'])
+      run_bundle_commands(template['bundle_commands'])
     end
 
     private
@@ -38,6 +39,12 @@ module Buildless
         file_path = File.join(Dir.pwd, file['file_path'])
         FileUtils.mkdir_p(File.dirname(file_path))
         File.write(file_path, file['content'])
+      end
+    end
+
+    def run_bundle_commands(commands)
+      commands.each do |command|
+        system command
       end
     end
   end
