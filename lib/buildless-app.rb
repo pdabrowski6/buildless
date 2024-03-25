@@ -19,7 +19,9 @@ module Buildless
       generate_project(template)
       generate_files(template['files'])
       run_bundle_commands(template['bundle_commands'])
+      clone_files(template['clones'])
       inject_code(template['inject_code'])
+      append_code(template['append_code'])
 
       puts 'Time for coding! 🚀'
     end
@@ -60,6 +62,24 @@ module Buildless
 
       injections.each do |injection|
         thor_app.inject_into_class(injection['file_path'], injection['class_name'], injection['content'])
+      end
+    end
+
+    def append_code(appends)
+      return if appends.nil? || appends.empty?
+
+      thor_app = ::Buildless::RailsApp.new
+
+      appends.each do |append|
+        thor_app.append_to_file(append['file_path'], append['content'])
+      end
+    end
+
+    def clone_files(files)
+      return if files.nil? || files.empty?
+
+      files.each do |file|
+        FileUtils.cp(file['from'], file['to'])
       end
     end
   end
