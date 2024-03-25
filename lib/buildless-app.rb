@@ -3,10 +3,12 @@
 require 'rest-client'
 require 'json'
 require 'fileutils'
+require 'thor'
 
 require 'buildless/cli/fetch_template'
 require 'buildless/cli/processor'
 require 'buildless/version'
+require 'buildless/rails_app'
 
 module Buildless
   RailsNotInstalled = Class.new(StandardError)
@@ -17,6 +19,9 @@ module Buildless
       generate_project(template)
       generate_files(template['files'])
       run_bundle_commands(template['bundle_commands'])
+      inject_code(template['inject_code'])
+
+      puts 'Time for coding! 🚀'
     end
 
     private
@@ -45,6 +50,16 @@ module Buildless
     def run_bundle_commands(commands)
       commands.each do |command|
         system command
+      end
+    end
+
+    def inject_code(injections)
+      return if injections.nil? || injections.empty?
+
+      thor_app = ::Buildless::RailsApp.new
+
+      injections.each do |injection|
+        thor_app.inject_into_class(injection['file_path'], injection['class_name'], injection['content'])
       end
     end
   end
