@@ -21,10 +21,11 @@ module Buildless
       verify_rails_installation
       generate_project(template)
       generate_files(template['files'])
-      run_bundle_commands(template['bundle_commands'])
+      run_commands(template['commands'])
       clone_files(template['clones'])
       inject_code(template['inject_code'])
       append_code(template['append_code'])
+      update_files(template['gsub'])
 
       puts 'Time for coding! 🚀'
     end
@@ -52,8 +53,9 @@ module Buildless
       end
     end
 
-    def run_bundle_commands(commands)
+    def run_commands(commands)
       commands.each do |command|
+        puts "-> \e[1;32;49mRun\e[0m #{command}"
         system command
       end
     end
@@ -75,6 +77,16 @@ module Buildless
 
       appends.each do |append|
         thor_app.append_to_file(append['file_path'], append['content'])
+      end
+    end
+
+    def update_files(updates)
+      return if updates.nil? || updates.empty?
+
+      thor_app = ::Buildless::RailsApp.new
+
+      updates.each do |update|
+        thor_app.gsub_file(update['file_path'], update['pattern'], update['value'])
       end
     end
 
